@@ -1,38 +1,49 @@
---схема БД: https://docs.google.com/document/d/1NVORWgdwlKepKq_b8SPRaSpraltxoMg2SIusTEN6mEQ/edit?usp=sharing
+--СЃС…РµРјР° Р‘Р”: https://docs.google.com/document/d/1NVORWgdwlKepKq_b8SPRaSpraltxoMg2SIusTEN6mEQ/edit?usp=sharing
 --colab/jupyter: https://colab.research.google.com/drive/1j4XdGIU__NYPVpv74vQa9HUOAkxsgUez?usp=sharing
 
+-- Р—Р°РґР°РЅРёРµ 20: РќР°Р№РґРёС‚Рµ СЃСЂРµРґРЅРёР№ СЂР°Р·РјРµСЂ hd PC РєР°Р¶РґРѕРіРѕ РёР· С‚РµС… РїСЂРѕРёР·РІРѕРґРёС‚РµР»РµР№, РєРѕС‚РѕСЂС‹Рµ РІС‹РїСѓСЃРєР°СЋС‚ Рё РїСЂРёРЅС‚РµСЂС‹. Р’С‹РІРµСЃС‚Рё: maker, СЃСЂРµРґРЅРёР№ СЂР°Р·РјРµСЂ HD.
 
--- Задание 1: Вывести name, class по кораблям, выпущенным после 1920
+select maker, avg(hd) 
+from pc p
+join product p2 
+on p.model = p2.model
+where maker in 
+(select distinct maker from printer p
+join product p2 
+on p.model = p2.model)
+group by maker
+
+-- Р—Р°РґР°РЅРёРµ 1: Р’С‹РІРµСЃС‚Рё name, class РїРѕ РєРѕСЂР°Р±Р»СЏРј, РІС‹РїСѓС‰РµРЅРЅС‹Рј РїРѕСЃР»Рµ 1920
 --
 select name, class from ships
 where launched > 1920
  
--- Задание 2: Вывести name, class по кораблям, выпущенным после 1920, но не позднее 1942
+-- Р—Р°РґР°РЅРёРµ 2: Р’С‹РІРµСЃС‚Рё name, class РїРѕ РєРѕСЂР°Р±Р»СЏРј, РІС‹РїСѓС‰РµРЅРЅС‹Рј РїРѕСЃР»Рµ 1920, РЅРѕ РЅРµ РїРѕР·РґРЅРµРµ 1942
 --
 select name, class from ships
 where launched between 1920 and 1942
  
--- Задание 3: Какое количество кораблей в каждом классе. Вывести количество и class
+-- Р—Р°РґР°РЅРёРµ 3: РљР°РєРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РєРѕСЂР°Р±Р»РµР№ РІ РєР°Р¶РґРѕРј РєР»Р°СЃСЃРµ. Р’С‹РІРµСЃС‚Рё РєРѕР»РёС‡РµСЃС‚РІРѕ Рё class
 --
  
 select class, count(class)
 from ships 
 group by class 
  
--- Задание 4: Для классов кораблей, калибр орудий которых не менее 16, укажите класс и страну. (таблица classes)
+-- Р—Р°РґР°РЅРёРµ 4: Р”Р»СЏ РєР»Р°СЃСЃРѕРІ РєРѕСЂР°Р±Р»РµР№, РєР°Р»РёР±СЂ РѕСЂСѓРґРёР№ РєРѕС‚РѕСЂС‹С… РЅРµ РјРµРЅРµРµ 16, СѓРєР°Р¶РёС‚Рµ РєР»Р°СЃСЃ Рё СЃС‚СЂР°РЅСѓ. (С‚Р°Р±Р»РёС†Р° classes)
 --
  
 select class, country  from classes
 where bore >=16
  
--- Задание 5: Укажите корабли, потопленные в сражениях в Северной Атлантике (таблица Outcomes, North Atlantic). Вывод: ship.
+-- Р—Р°РґР°РЅРёРµ 5: РЈРєР°Р¶РёС‚Рµ РєРѕСЂР°Р±Р»Рё, РїРѕС‚РѕРїР»РµРЅРЅС‹Рµ РІ СЃСЂР°Р¶РµРЅРёСЏС… РІ РЎРµРІРµСЂРЅРѕР№ РђС‚Р»Р°РЅС‚РёРєРµ (С‚Р°Р±Р»РёС†Р° Outcomes, North Atlantic). Р’С‹РІРѕРґ: ship.
 --
 select ship from outcomes o 
 where result = 'sunk'
 and battle = 'North Atlantic' 
  
 
--- Задание 6: Вывести название (ship) последнего потопленного корабля
+-- Р—Р°РґР°РЅРёРµ 6: Р’С‹РІРµСЃС‚Рё РЅР°Р·РІР°РЅРёРµ (ship) РїРѕСЃР»РµРґРЅРµРіРѕ РїРѕС‚РѕРїР»РµРЅРЅРѕРіРѕ РєРѕСЂР°Р±Р»СЏ
 --
 SELECT outcomes.ship FROM outcomes
 join battles 
@@ -46,7 +57,7 @@ on outcomes.battle = battles.name
 where result = 'sunk'
 )
 
--- Задание 7: Вывести название корабля (ship) и класс (class) последнего потопленного корабля
+-- Р—Р°РґР°РЅРёРµ 7: Р’С‹РІРµСЃС‚Рё РЅР°Р·РІР°РЅРёРµ РєРѕСЂР°Р±Р»СЏ (ship) Рё РєР»Р°СЃСЃ (class) РїРѕСЃР»РµРґРЅРµРіРѕ РїРѕС‚РѕРїР»РµРЅРЅРѕРіРѕ РєРѕСЂР°Р±Р»СЏ
 --
 SELECT outcomes.ship, class FROM outcomes
 join battles 
@@ -64,7 +75,7 @@ on ships."name" = outcomes.ship
 where result = 'sunk'
 )
 
--- Задание 8: Вывести все потопленные корабли, у которых калибр орудий не менее 16, и которые потоплены. Вывод: ship, class
+-- Р—Р°РґР°РЅРёРµ 8: Р’С‹РІРµСЃС‚Рё РІСЃРµ РїРѕС‚РѕРїР»РµРЅРЅС‹Рµ РєРѕСЂР°Р±Р»Рё, Сѓ РєРѕС‚РѕСЂС‹С… РєР°Р»РёР±СЂ РѕСЂСѓРґРёР№ РЅРµ РјРµРЅРµРµ 16, Рё РєРѕС‚РѕСЂС‹Рµ РїРѕС‚РѕРїР»РµРЅС‹. Р’С‹РІРѕРґ: ship, class
 --
 select o.ship , c."class"  
 from outcomes o 
@@ -75,12 +86,12 @@ on c."class"  = s."class"
 where "result" = 'sunk'
 and bore >=16
 
--- Задание 9: Вывести все классы кораблей, выпущенные США (таблица classes, country = 'USA'). Вывод: class
+-- Р—Р°РґР°РЅРёРµ 9: Р’С‹РІРµСЃС‚Рё РІСЃРµ РєР»Р°СЃСЃС‹ РєРѕСЂР°Р±Р»РµР№, РІС‹РїСѓС‰РµРЅРЅС‹Рµ РЎРЁРђ (С‚Р°Р±Р»РёС†Р° classes, country = 'USA'). Р’С‹РІРѕРґ: class
 --
 select class from classes c 
 where country = 'USA'
 
--- Задание 10: Вывести все корабли, выпущенные США (таблица classes & ships, country = 'USA'). Вывод: name, class
+-- Р—Р°РґР°РЅРёРµ 10: Р’С‹РІРµСЃС‚Рё РІСЃРµ РєРѕСЂР°Р±Р»Рё, РІС‹РїСѓС‰РµРЅРЅС‹Рµ РЎРЁРђ (С‚Р°Р±Р»РёС†Р° classes & ships, country = 'USA'). Р’С‹РІРѕРґ: name, class
 
 select name, classes.class from ships s 
 join classes 

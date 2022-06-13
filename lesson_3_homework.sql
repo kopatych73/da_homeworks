@@ -1,8 +1,8 @@
---схема БД: https://docs.google.com/document/d/1NVORWgdwlKepKq_b8SPRaSpraltxoMg2SIusTEN6mEQ/edit?usp=sharing
+--СЃС…РµРјР° Р‘Р”: https://docs.google.com/document/d/1NVORWgdwlKepKq_b8SPRaSpraltxoMg2SIusTEN6mEQ/edit?usp=sharing
 
 --task1
---Корабли: Для каждого класса определите число кораблей этого класса, 
---потопленных в сражениях. Вывести: класс и число потопленных кораблей.
+--РљРѕСЂР°Р±Р»Рё: Р”Р»СЏ РєР°Р¶РґРѕРіРѕ РєР»Р°СЃСЃР° РѕРїСЂРµРґРµР»РёС‚Рµ С‡РёСЃР»Рѕ РєРѕСЂР°Р±Р»РµР№ СЌС‚РѕРіРѕ РєР»Р°СЃСЃР°, 
+--РїРѕС‚РѕРїР»РµРЅРЅС‹С… РІ СЃСЂР°Р¶РµРЅРёСЏС…. Р’С‹РІРµСЃС‚Рё: РєР»Р°СЃСЃ Рё С‡РёСЃР»Рѕ РїРѕС‚РѕРїР»РµРЅРЅС‹С… РєРѕСЂР°Р±Р»РµР№.
 
 select class, count(ship) from ships s 
 join 
@@ -13,7 +13,7 @@ on s."name" =o.ship
 
 
 --task2
---Корабли: Для каждого класса определите год, когда был спущен на воду первый корабль этого класса. Если год спуска на воду головного корабля неизвестен, определите минимальный год спуска на воду кораблей этого класса. Вывести: класс, год.
+--РљРѕСЂР°Р±Р»Рё: Р”Р»СЏ РєР°Р¶РґРѕРіРѕ РєР»Р°СЃСЃР° РѕРїСЂРµРґРµР»РёС‚Рµ РіРѕРґ, РєРѕРіРґР° Р±С‹Р» СЃРїСѓС‰РµРЅ РЅР° РІРѕРґСѓ РїРµСЂРІС‹Р№ РєРѕСЂР°Р±Р»СЊ СЌС‚РѕРіРѕ РєР»Р°СЃСЃР°. Р•СЃР»Рё РіРѕРґ СЃРїСѓСЃРєР° РЅР° РІРѕРґСѓ РіРѕР»РѕРІРЅРѕРіРѕ РєРѕСЂР°Р±Р»СЏ РЅРµРёР·РІРµСЃС‚РµРЅ, РѕРїСЂРµРґРµР»РёС‚Рµ РјРёРЅРёРјР°Р»СЊРЅС‹Р№ РіРѕРґ СЃРїСѓСЃРєР° РЅР° РІРѕРґСѓ РєРѕСЂР°Р±Р»РµР№ СЌС‚РѕРіРѕ РєР»Р°СЃСЃР°. Р’С‹РІРµСЃС‚Рё: РєР»Р°СЃСЃ, РіРѕРґ.
 
 select c."class" , l from classes c
 join 
@@ -22,7 +22,7 @@ join
 on  ml.class = c."class" 
 
 --task3
---Корабли: Для классов, имеющих потери в виде потопленных кораблей и не менее 3 кораблей в базе данных, вывести имя класса и число потопленных кораблей.
+--РљРѕСЂР°Р±Р»Рё: Р”Р»СЏ РєР»Р°СЃСЃРѕРІ, РёРјРµСЋС‰РёС… РїРѕС‚РµСЂРё РІ РІРёРґРµ РїРѕС‚РѕРїР»РµРЅРЅС‹С… РєРѕСЂР°Р±Р»РµР№ Рё РЅРµ РјРµРЅРµРµ 3 РєРѕСЂР°Р±Р»РµР№ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…, РІС‹РІРµСЃС‚Рё РёРјСЏ РєР»Р°СЃСЃР° Рё С‡РёСЃР»Рѕ РїРѕС‚РѕРїР»РµРЅРЅС‹С… РєРѕСЂР°Р±Р»РµР№.
 
 with sunked_ships as
 	(select class, count(ship) sunked from ships
@@ -40,17 +40,16 @@ on more_then_2.class = sunked_ships."class"
 
 
 --task4
---Корабли: Найдите названия кораблей, имеющих наибольшее число орудий 
---среди всех кораблей такого же водоизмещения (учесть корабли из таблицы Outcomes).
+--РљРѕСЂР°Р±Р»Рё: РќР°Р№РґРёС‚Рµ РЅР°Р·РІР°РЅРёСЏ РєРѕСЂР°Р±Р»РµР№, РёРјРµСЋС‰РёС… РЅР°РёР±РѕР»СЊС€РµРµ С‡РёСЃР»Рѕ РѕСЂСѓРґРёР№ 
+--СЃСЂРµРґРё РІСЃРµС… РєРѕСЂР°Р±Р»РµР№ С‚Р°РєРѕРіРѕ Р¶Рµ РІРѕРґРѕРёР·РјРµС‰РµРЅРёСЏ (СѓС‡РµСЃС‚СЊ РєРѕСЂР°Р±Р»Рё РёР· С‚Р°Р±Р»РёС†С‹ Outcomes).
 
 with max_numgun as (
-select displacement, max(numguns ) from classes c
-group by displacement)
-,
-allships as
-(select name, "class" from ships 
-join outcomes 
-on ships."name" = outcomes.ship) 
+  select displacement, max(numguns ) from classes c
+  group by displacement),
+  allships as
+    (select name, "class" from ships 
+    join outcomes 
+    on ships."name" = outcomes.ship) 
 select name from classes cl
 join max_numgun m
 on m.displacement = cl.displacement 
@@ -58,10 +57,10 @@ join allships alls
 on alls.class = cl."class" 
 
 --task5
---Компьютерная фирма: Найдите производителей принтеров, 
---которые производят ПК с наименьшим объемом RAM и 
---с самым быстрым процессором среди всех ПК, имеющих 
---наименьший объем RAM. Вывести: Maker
+--РљРѕРјРїСЊСЋС‚РµСЂРЅР°СЏ С„РёСЂРјР°: РќР°Р№РґРёС‚Рµ РїСЂРѕРёР·РІРѕРґРёС‚РµР»РµР№ РїСЂРёРЅС‚РµСЂРѕРІ, 
+--РєРѕС‚РѕСЂС‹Рµ РїСЂРѕРёР·РІРѕРґСЏС‚ РџРљ СЃ РЅР°РёРјРµРЅСЊС€РёРј РѕР±СЉРµРјРѕРј RAM Рё 
+--СЃ СЃР°РјС‹Рј Р±С‹СЃС‚СЂС‹Рј РїСЂРѕС†РµСЃСЃРѕСЂРѕРј СЃСЂРµРґРё РІСЃРµС… РџРљ, РёРјРµСЋС‰РёС… 
+--РЅР°РёРјРµРЅСЊС€РёР№ РѕР±СЉРµРј RAM. Р’С‹РІРµСЃС‚Рё: Maker
 
 with minram as (
 select pc.model, min(ram) from pc
@@ -76,36 +75,7 @@ on pc.model=maxspeed.model
 group by pc.model)
 select distinct maker from product
 where maker in (
-select maker from product
-join minram
-on minram.model = product.model)
+  select maker from product
+  join minram
+  on minram.model = product.model)
 and type='Printer'
-
-
-
-
-
-with mkrprinter as 
-(
-select distinct maker from product
-where type = 'Printer'
-)
-
-
-
-
-select * 
-from pc
-join product 
-on product.model = pc.model
-join printer 
-on printer.maker = product.maker 
-where ram = 
-(select min(ram)
-from pc)
-
-
-join product 
---on printer.model = product.model 
-
---group by model

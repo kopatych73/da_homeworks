@@ -159,7 +159,7 @@ request = """
 select * from count_products_by_makers order by maker
 """ 
 df = pd.read_sql_query(request, conn) 
-fig = px.bar(x=df.maker.to_list(), y=df['count'].to_list(), labels={'x':'maker', 'y':'avg price'}) 
+fig = px.bar(x=df.maker.to_list(), y=df['count'].to_list(), labels={'x':'maker', 'y':'count'}) 
 fig.show()
 
 --task8 (lesson4)

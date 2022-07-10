@@ -1,0 +1,36 @@
+# 1. Посмотрите видео Дэвида Бизли про встроенные инструменты Python
+# 2. Попробуйте используя встроенные инструменты Python проанализировать таблицу из файла "Vacancy.csv"
+# 3. Попробуйте ответить на вопросы:
+import csv
+import sys
+sys.maxsize
+csv.field_size_limit(5000000)
+vacs = list(csv.DictReader(open('vacancy.csv')))
+VacTitle = [row ['vactitle'] for row in vacs]
+# Сколько вакансий, которые вам нравятся?
+targertvacs = [ row for row in VacTitle if (row.lower().find('аналитик') != -1) or (row.find('SQL') != -1)]
+print(len(targertvacs))
+
+# За какие периоды эти вакансии?
+
+# Подскажите направление движения
+
+
+# Сколько вакансий с такими позициями, на которых вы работаете?
+MJobVacs = [ row for row in VacTitle if (row.lower().find('системный администратор') != -1)]# or (row.find('SQL') != -1)]
+print(len(MJobVacs))
+# Сколько вакансий для аналитика данных?
+targertvacsDA = [ row for row in VacTitle if (row.lower().find('аналитик') != -1) and (row.find('данных') != -1)]
+print(len(targertvacsDA))
+# Сколько вакансий для аналитика данных с использованием Python?
+targertvacsDA_PY = []
+with open('vacancy.csv') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        if ((row['vactitle'].lower().find('аналитик данных') != -1) and \
+           (row['vacdescription'].lower().find('python') != -1)):
+            targertvacsDA_PY.append(row['vactitle'])
+print(len(targertvacsDA_PY))
+
+# В задании важно не использовать pandas и numpy, а встроенные инструменты python
+# Counter, CSV, defaultdict, sorted

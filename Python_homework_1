@@ -13,7 +13,8 @@ print(len(targertvacs))
 
 # За какие периоды эти вакансии?
 
-# Подскажите направление движения
+from collections import Counter
+Counter([row['vacdate'] for row in targetvacs])
 
 
 # Сколько вакансий с такими позициями, на которых вы работаете?
